@@ -1,16 +1,22 @@
 <nav class="navbar">
-    <div class="logo">JE.<span class="highlight">Dev</span></div>
+    <div class="logo">JE.<span class="highlight" data-i18n="nav_logo">Dev</span></div>
     
-    <div class="hamburger" id="hamburger-btn">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
+    <div style="display: flex; align-items: center; gap: 20px;">
+        <button id="lang-switch" class="btn-lang">
+            <i class="fas fa-globe"></i> <span id="current-lang">EN</span>
+        </button>
+
+        <div class="hamburger" id="hamburger-btn">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
     </div>
 
     <ul class="nav-links" id="nav-menu">
-        <li><a href="#about" class="nav-link">Expertise</a></li>
-        <li><a href="#projects" class="nav-link">Réalisations</a></li>
-        <li><a href="#services" class="nav-link">Services</a></li>
-        <li><a href="#contact" class="btn-nav nav-link">Contact</a></li>
+        <li><a href="#about" class="nav-link" data-i18n="nav_expertise">Expertise</a></li>
+        <li><a href="#projects" class="nav-link" data-i18n="nav_projects">Réalisations</a></li>
+        <li><a href="#services" class="nav-link" data-i18n="nav_services">Services</a></li>
+        <li><a href="#contact" class="btn-nav nav-link" data-i18n="nav_contact">Contact</a></li>
     </ul>
 </nav>
