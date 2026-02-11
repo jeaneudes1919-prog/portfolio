@@ -768,8 +768,22 @@ body {
 /* --- PROFILE STYLE (Pour la section About) --- */
 
 .profile-header {
-    text-align: center;
-    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column; /* Aligne les éléments verticalement */
+    align-items: center;    /* Centre tout horizontalement */
+    text-align: center;     /* Centre le texte à l'intérieur des balises */
+    width: 100%;
+}
+
+.profile-header h3 {
+    margin: 15px 0 5px 0;   /* Ajuste l'espace au-dessus et en-dessous du nom */
+    display: block;
+    width: 100%;
+}
+
+.profile-header .role-badge {
+    margin: 0 auto;         /* Force le centrage du badge */
+    display: inline-block;
 }
 
 .img-container {
