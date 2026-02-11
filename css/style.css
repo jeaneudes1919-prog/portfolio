@@ -1,33 +1,66 @@
-/* --- SCROLL FLUIDE --- */
-html {
-    scroll-behavior: smooth; /* Indispensable pour que les liens glissent */
+/* =========================================
+   1. VARIABLES & RESET
+   ========================================= */
+:root {
+    --bg-color: #0a0f1c; /* Bleu nuit très sombre */
+    --text-color: #e2e8f0;
+    --primary: #3b82f6; /* Bleu électrique */
+    --accent: #10b981;  /* Vert émeraude */
+    --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --nav-height: 70px;       /* Hauteur Desktop */
+    --nav-height-mobile: 60px; /* Hauteur Mobile */
 }
 
-/* --- NAVBAR --- */
-/* --- NAVBAR --- */
-/* --- NAVBAR --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+    /* CORRECTION IMPORTANTE : On pousse le site vers le bas pour que la navbar ne cache rien */
+    padding-top: var(--nav-height); 
+}
+
+/* Ajustement du padding pour le mobile */
+@media (max-width: 768px) {
+    body {
+        padding-top: var(--nav-height-mobile);
+    }
+}
+
+/* =========================================
+   2. NAVBAR (Ton Style Conservé)
+   ========================================= */
 .navbar {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 1200px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 30px;
+    padding: 0 5%;
+    height: var(--nav-height);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
     z-index: 1000;
-    border-radius: 50px;
-    background: rgba(10, 15, 28, 0.95); /* Fond sombre opaque */
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(10, 25, 47, 0.95);
     backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Correctif pour empêcher le saut au survol */
+/* CORRECTION DU BUG DE TREMBLEMENT : J'ai enlevé le transform ici */
 .navbar:hover {
-    transform: translateX(-50%) !important; 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .logo {
@@ -61,9 +94,9 @@ html {
     border-radius: 20px;
 }
 
-/* --- HAMBURGER MENU (MOBILE) --- */
+/* Hamburger (Desktop caché) */
 .hamburger {
-    display: none; /* Caché sur PC */
+    display: none;
     cursor: pointer;
 }
 
@@ -76,91 +109,54 @@ html {
     transition: all 0.3s ease-in-out;
 }
 
-/* --- RESPONSIVE MOBILE --- */
-@media (max-width: 768px) {
-    /* 1. On affiche le bouton hamburger */
+/* --- RESPONSIVE MOBILE (OPTIMISÉ) --- */
+@media screen and (max-width: 768px) {
+    .navbar {
+        height: var(--nav-height-mobile);
+        padding: 0 15px;
+    }
+
     .hamburger {
         display: block;
     }
 
-    /* 2. On cache le bouton hamburger quand il est actif (optionnel, ou on l'anime) */
-    .hamburger.active .bar:nth-child(2) {
-        opacity: 0;
-    }
-    .hamburger.active .bar:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-    }
-    .hamburger.active .bar:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-    }
-
-    /* 3. Le Menu Mobile (Caché par défaut) */
+    /* Le menu caché */
     .nav-links {
-        position: absolute;
-        top: 70px; /* Juste en dessous de la navbar */
-        left: 0;
-        width: 100%;
-        background: rgba(10, 15, 28, 0.98); /* Fond très sombre */
+        position: fixed;
+        top: var(--nav-height-mobile);
+        right: -100%; /* Caché à droite */
         flex-direction: column;
-        align-items: center;
-        gap: 25px;
-        padding: 30px 0;
-        border-radius: 20px;
-        border: 1px solid rgba(255,255,255,0.1);
-        
-        /* Animation d'ouverture */
-        opacity: 0;
-        transform: translateY(-20px);
-        pointer-events: none; /* On ne peut pas cliquer quand c'est caché */
-        transition: all 0.3s ease;
+        background: #0a192f;
+        width: 100%;
+        height: calc(100vh - var(--nav-height-mobile));
+        text-align: center;
+        transition: 0.3s ease;
+        gap: 20px !important;
+        padding-top: 40px;
+        border-top: 1px solid rgba(255,255,255,0.1);
     }
 
-    /* 4. Quand le menu est actif (Ouvert) */
     .nav-links.active {
-        opacity: 1;
-        transform: translateY(0);
-        pointer-events: auto;
+        right: 0; /* On le montre */
     }
-    
-    .nav-links li:not(:last-child) {
-        display: block; /* On réaffiche tout */
+
+    .nav-link {
+        font-size: 1.2rem;
     }
-}
 
-
-
-
-/* =========================================
-   1. VARIABLES & RESET
-   ========================================= */
-:root {
-    --bg-color: #0a0f1c; /* Bleu nuit très sombre */
-    --text-color: #e2e8f0;
-    --primary: #3b82f6; /* Bleu électrique */
-    --accent: #10b981;  /* Vert émeraude */
-    --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    font-family: var(--font-main);
-    line-height: 1.6;
-    overflow-x: hidden;
+    /* Animation Hamburger */
+    .hamburger.active .bar:nth-child(2) { opacity: 0; }
+    .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 }
 
 /* =========================================
-   2. HERO SECTION (CYBER STYLE)
+   3. HERO SECTION (Ton Style Cyber)
    ========================================= */
 .hero {
     position: relative;
-    height: 100vh;
+    /* On ajuste la hauteur pour tenir compte du padding du body */
+    height: calc(100vh - var(--nav-height)); 
     min-height: 600px;
     display: flex;
     align-items: center;
@@ -218,7 +214,6 @@ body {
     animation: fadeInUp 1s ease-out;
 }
 
-/* Badge Statut */
 .status-badge {
     display: inline-flex;
     align-items: center;
@@ -242,7 +237,6 @@ body {
     animation: pulse 2s infinite;
 }
 
-/* Titre Hero */
 .hero h1 {
     font-size: 4.5rem;
     line-height: 1.1;
@@ -252,6 +246,11 @@ body {
     letter-spacing: -2px;
 }
 
+/* Optimisation taille police Mobile */
+@media (max-width: 768px) {
+    .hero h1 { font-size: 2.8rem; }
+}
+
 .text-gradient {
     background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
     -webkit-background-clip: text;
@@ -259,7 +258,6 @@ body {
     filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.3));
 }
 
-/* Sous-titre dynamique */
 .dynamic-role-container {
     font-size: 1.5rem;
     color: #94a3b8;
@@ -274,7 +272,6 @@ body {
     animation: blink 0.7s infinite;
 }
 
-/* Description Hero */
 .hero-desc {
     font-size: 1.1rem;
     color: #64748b;
@@ -284,7 +281,6 @@ body {
 
 .hero-desc strong { color: #e2e8f0; }
 
-/* Boutons Hero */
 .cta-group {
     display: flex;
     justify-content: center;
@@ -331,7 +327,6 @@ body {
     border-color: white;
 }
 
-/* Stats Hero */
 .hero-stats {
     display: flex;
     justify-content: center;
@@ -347,7 +342,7 @@ body {
 .h-stat i { color: var(--primary); }
 
 /* =========================================
-   3. SECTIONS GLOBALES (About, Projects...)
+   4. SECTIONS & CARDS (Tes Effets)
    ========================================= */
 .section-padding {
     padding: 100px 10%;
@@ -369,14 +364,6 @@ body {
     -webkit-text-fill-color: transparent;
 }
 
-.line-gradient {
-    height: 4px;
-    width: 80px;
-    background: linear-gradient(90deg, var(--primary), var(--accent));
-    border-radius: 2px;
-}
-
-/* --- GLASSMORPHISM CARDS --- */
 .glass-card {
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(10px);
@@ -394,7 +381,52 @@ body {
 }
 
 /* =========================================
-   4. ABOUT & SKILLS
+   5. PROFILE HEADER (Centrage Fixé)
+   ========================================= */
+.profile-header {
+    display: flex;
+    flex-direction: column; /* Force l'empilement vertical */
+    align-items: center;    /* Centre horizontalement */
+    text-align: center;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.img-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 15px; /* Marge auto pour centrer */
+}
+
+.profile-pic {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(59, 130, 246, 0.3);
+    padding: 4px;
+}
+
+.profile-header h3 {
+    margin: 10px 0 5px 0;
+    display: block;
+    width: 100%;
+}
+
+.role-badge {
+    display: inline-block; /* Important pour que ça prenne la taille du texte */
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--primary);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+/* =========================================
+   6. ABOUT & SKILLS
    ========================================= */
 .about-grid {
     display: grid;
@@ -495,7 +527,7 @@ body {
     transition: color 0.3s;
 }
 
-/* EFFET NEON HOVER (Le Style Ouf) */
+/* EFFET NEON HOVER */
 .neon-hover {
     position: relative;
     overflow: hidden;
@@ -527,7 +559,7 @@ body {
 }
 
 /* =========================================
-   5. PROJECTS
+   7. PROJECTS
    ========================================= */
 .projects-grid {
     display: grid;
@@ -614,7 +646,7 @@ body {
 .btn-live:hover { color: #34d399; }
 
 /* =========================================
-   6. SERVICES
+   8. SERVICES
    ========================================= */
 .services-grid {
     display: grid;
@@ -670,7 +702,7 @@ body {
 }
 
 /* =========================================
-   7. FOOTER
+   9. FOOTER
    ========================================= */
 .footer-section {
     background: #020617;
@@ -727,108 +759,8 @@ body {
 }
 
 /* =========================================
-   8. ANIMATIONS & MEDIA QUERIES
+   10. PERSONAL INFO (Liste)
    ========================================= */
-@keyframes pulse {
-    0% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.1); }
-    100% { opacity: 1; transform: scale(1); }
-}
-
-@keyframes blink {
-    0%, 100% { border-color: transparent; }
-    50% { border-color: var(--primary); }
-}
-
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes pulseIcon {
-    from { transform: scale(1); }
-    to { transform: scale(1.2); }
-}
-
-@media (max-width: 900px) {
-    .about-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 768px) {
-    .hero h1 { font-size: 3rem; }
-    .hero-bg { opacity: 0.2; }
-    .cta-group { flex-direction: column; align-items: center; }
-    .btn-secondary { margin-left: 0; }
-    .hero-stats { flex-direction: column; gap: 10px; }
-    .section-padding { padding: 80px 5%; }
-}
-
-/* --- PROFILE STYLE (Pour la section About) --- */
-
-.profile-header {
-    display: flex;
-    flex-direction: column; /* Aligne les éléments verticalement */
-    align-items: center;    /* Centre tout horizontalement */
-    text-align: center;     /* Centre le texte à l'intérieur des balises */
-    width: 100%;
-}
-
-.profile-header h3 {
-    margin: 15px 0 5px 0;   /* Ajuste l'espace au-dessus et en-dessous du nom */
-    display: block;
-    width: 100%;
-}
-
-.profile-header .role-badge {
-    margin: 0 auto;         /* Force le centrage du badge */
-    display: inline-block;
-}
-
-.img-container {
-    position: relative;
-    width: 120px;
-    height: 120px;
-    margin: 0 auto 15px;
-}
-
-.profile-pic {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid rgba(59, 130, 246, 0.3);
-    padding: 4px;
-}
-
-.status-dot {
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
-    width: 15px;
-    height: 15px;
-    background: #10b981; /* Vert */
-    border-radius: 50%;
-    border: 2px solid var(--bg-color);
-    box-shadow: 0 0 10px #10b981;
-}
-
-.text-primary {
-    color: var(--primary);
-}
-
-.role-badge {
-    display: inline-block;
-    background: rgba(59, 130, 246, 0.1);
-    color: var(--primary);
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 600;
-}
-
-/* LISTE D'INFOS PERSONNELLES */
 .personal-info-list {
     list-style: none;
     margin-bottom: 30px;
@@ -856,7 +788,7 @@ body {
     align-items: center;
     justify-content: center;
     margin-right: 15px;
-    color: var(--accent); /* Icône en vert */
+    color: var(--accent);
     font-size: 1.1rem;
 }
 
@@ -888,7 +820,7 @@ body {
     border-radius: 10px;
 }
 
-/* --- BOUTON LANGUE --- */
+/* BOUTON LANGUE */
 .btn-lang {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -909,4 +841,41 @@ body {
     color: white;
     border-color: var(--primary);
     transform: translateY(-2px);
+}
+
+/* =========================================
+   11. ANIMATIONS & QUERIES
+   ========================================= */
+@keyframes pulse {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.1); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes blink {
+    0%, 100% { border-color: transparent; }
+    50% { border-color: var(--primary); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseIcon {
+    from { transform: scale(1); }
+    to { transform: scale(1.2); }
+}
+
+@media (max-width: 900px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .cta-group { flex-direction: column; align-items: center; }
+    .btn-secondary { margin-left: 0; }
+    .hero-stats { flex-direction: column; gap: 10px; }
+    .section-padding { padding: 80px 5%; }
 }
